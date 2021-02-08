@@ -1,0 +1,76 @@
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Keywords" content="Xecades,TIY,HTML,CSS,JS,代码">
+    <meta name="description" content="Xecades 「TIY」 HTML 代码编辑器">
+    <meta name="author" content="Xecades">
+    <title>Xecades | TIY</title>
+</head>
+
+<body>
+    <el-container id="app">
+        <div class="left">
+            <div id="buttons" class="fr">
+                <el-button-group>
+                    <el-tooltip content="打开新窗口" placement="bottom-start">
+                        <el-button id="full" @click="openSelf()" icon="el-icon-edit" circle></el-button>
+                    </el-tooltip>
+
+                    <el-tooltip content="[F4] 格式化代码" placement="bottom">
+                        <el-button id="format" @click="formatCode()" icon="el-icon-magic-stick" circle></el-button>
+                    </el-tooltip>
+
+                    <el-tooltip content="设置" placement="bottom-end">
+                        <el-button id="setting" @click="setting_visible=true" icon="el-icon-setting" circle></el-button>
+                    </el-tooltip>
+                </el-button-group>
+
+                <el-tooltip content="[F9] 运行代码" placement="bottom-start">
+                    <el-button id="launch" @click="launchCode()" :type="launch_color" icon="el-icon-finished" circle>
+                    </el-button>
+                </el-tooltip>
+            </div>
+            <pre id="code" class="fr"></pre>
+            <el-tooltip :content="`(不计空格) ${selectCountSpc} / ${textCountSpc}`" placement="top-end">
+                <div class="count">
+                    {{ selectCount }} / {{ textCount }}
+                </div>
+            </el-tooltip>
+        </div>
+
+        <div class="right">
+            <div id="console">
+                <div class="title">console</div>
+                <div id="output">
+                    <div class="item command">
+                        <span class="icon"></span>
+                        <textarea id="commandLine" class="text"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <el-dialog id="dialog" title="设置" :visible.sync="setting_visible">
+            <div class="item">
+                <span class="description">自动折行</span>
+                <el-switch v-model="auto_warp"></el-switch>
+            </div>
+            <div class="item">
+                <span class="description">字体大小</span>
+                <el-input-number controls-position="right" v-model="font_size" :min="11" :max="30"></el-input-number>
+            </div>
+            <div class="copyright">
+                「TIY」HTML 代码运行工具<br>
+                其中「TIY」指 Try It Yourself<br>
+                Developed by <a href="https://xecades.xyz/">Xecades</a>
+            </div>
+        </el-dialog>
+    </el-container>
+
+    <script src="js/HTML.js"></script>
+    <script src="js/construct.js"></script>
+</body>
+
+</html>

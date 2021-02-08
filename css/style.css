@@ -1,0 +1,251 @@
+.left {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    border-right: 1px solid #eee;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50%;
+}
+
+.left #code {
+    z-index: 100;
+    top: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.left #buttons {
+    position: absolute;
+    z-index: 1000;
+    text-align: right;
+    right: 0;
+    height: 50px;
+    padding: 5px;
+}
+
+.left .count {
+    text-align: right;
+    font-family: monospace;
+    color: #909399;
+    display: inline-block;
+    position: absolute;
+    z-index: 1000;
+    padding: 5px;
+    bottom: 0;
+    right: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.right #frame {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: calc(100% - 200px);
+}
+
+.right #console {
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #eee;
+    width: 100%;
+    height: 200px;
+    font-family: monospace;
+    padding: 5px;
+}
+
+.right #console .title {
+    font-size: 1.1rem;
+    color: #909399;
+    height: 20px;
+    margin-bottom: 5px;
+}
+
+.right #output {
+    width: 100%;
+    height: calc(100% - 20px);
+    overflow: scroll;
+}
+
+#dialog .el-dialog {
+    width: 600px;
+    height: 300px;
+    top: 50%;
+    margin-top: -150px !important;
+}
+
+#dialog .item {
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+}
+
+#dialog .item .description {
+    display: inline-block;
+    width: 20%;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+#dialog .copyright {
+    font-family: monospace;
+    color: #aaa;
+    text-align: right;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-weight: lighter;
+    display: inline-block;
+}
+
+#dialog .copyright a {
+    color: #666;
+}
+
+#output .item {
+    white-space: pre;
+    height: auto;
+    line-height: 20px;
+    font-size: 13px;
+    cursor: default;
+}
+
+#output .item:not(.command):hover {
+    background-color: #f0f0f0;
+}
+
+#output .text {
+    display: inline-block;
+    white-space: pre;
+    height: auto;
+    line-height: 20px;
+    font-size: 13px;
+    font-family: Menlo, Consolas, monospace;
+    word-wrap: break-word;
+    white-space: normal;
+    width: calc(100% - 30px);
+}
+
+#output .icon::before {
+    display: inline-block;
+    line-height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: auto;
+    vertical-align: top;
+    font-family: element-icons !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#output .warn .icon::before {
+    content: "\e7a3";
+}
+
+#output .error .icon::before {
+    content: "\e79d";
+}
+
+#output .info .icon::before {
+    content: "\e7a1";
+}
+
+#output .default .icon::before {
+    content: "❯❯";
+}
+
+#output .command .icon::before {
+    content: "❮❮";
+}
+
+#output .commanded .icon::before {
+    content: "❮❮";
+}
+
+#output .return .icon::before {
+    content: " ❮";
+}
+
+#output .warn {
+    color: rgb(92, 60, 0);
+}
+
+#output .error {
+    color: rgb(235, 57, 65);
+}
+
+#output .info {
+    color: rgb(104, 104, 104);
+}
+
+#output .default {
+    color: rgb(87, 87, 87);
+}
+
+#output .command {
+    color: rgb(102, 177, 255);
+}
+
+#output .commanded {
+    color: rgb(87, 87, 87);
+}
+
+#output .return {
+    color: rgb(153, 152, 152);
+}
+
+#output #commandLine {
+    outline: none;
+    border: none;
+    height: 20px;
+    resize: none;
+}
+
+.el-input-number__increase,
+.el-input-number__decrease {
+    height: 50% !important;
+}
+
+@media all and (max-width: 480px) {
+    .left {
+        width: 100%;
+        height: 30%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .right {
+        top: 30%;
+        width: 100%;
+        height: 70%;
+    }
+
+    .right #frame {
+        height: calc(100% - 200px);
+    }
+
+    .right #console {
+        height: 200px;
+    }
+
+    .right #console .title {
+        font-size: 1rem;
+    }
+
+    #dialog .el-dialog {
+        width: 95%;
+        height: 300px;
+        top: 50%;
+        margin-top: -150px !important;
+    }
+}
