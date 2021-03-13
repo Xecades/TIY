@@ -142,6 +142,12 @@ function closeDialog() {
     }, 200);
 }
 
+function message(e) {
+    if (e.source != window.parent) return;
+    var data = JSON.parse(e.data);
+    data && (isFileView = true) && fileLoaded(data);
+}
+
 function setEditorFn() {
     editor.session.on('change', editorChg);
     editor.selection.on('changeSelection', editorSelect);
@@ -156,6 +162,7 @@ function setEditorFn() {
     closer.onclick     = closeDialog;
     autoWarp.onchange  = chgWarp;
     fontSize.onchange  = chgFontSize;
+    window.onmessage   = message;
 
     updateStatus();
     command.innerHTML = edit.cmdinsert;
