@@ -9,13 +9,14 @@ const edit = {
 const col    = ["#409eff", "#e6a23c"];
 const colHov = ["#66b1ff", "#ebb563"];
 const colAct = ["#3a8ee6", "#cf9236"];
-const ls     = {fontSize: "FontSize", isWarp: "AutoWarp", theme: "Theme", doc: "edit"};
+const ls     = {fontSize: "FontSize", isWarp: "AutoWarp", theme: "Theme", doc: "edit", msg: "msg"};
 const types  = {log: "❮❮", commanded: "❯❯", return: "❮·", warn: '<i class="fa fa-exclamation-triangle"></i>', error: '<i class="fa fa-times-circle"></i>', info: '<i class="fa fa-info-circle"></i>'};
 
-var editor, themeList, lastCmd = "", cmd = "", isFileView = false;
+var editor, themeList, lastCmd = "", cmd = "", isFileView = false, isMsgView = false;
 
 const $get    = (key)            => localStorage.getItem(key) || null;
 const $set    = (key, val)       => localStorage.setItem(key, val) || val;
+const $del    = (key)            => localStorage.removeItem(key) || null;
 const $var    = (key)            => decodeURI(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURI(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 const isCtrl  = ()               => window.event.ctrlKey || window.event.metaKey;
 const title   = (title)          => Title(title + " | TIY");
@@ -25,13 +26,13 @@ const setDoc  = (doc)            => editor.session.setValue(doc) || true;
 const chgCSS  = (prop, val)      => document.documentElement.style.setProperty(prop, val);
 const getSel  = ()               => (document.selection) ? document.selection.createRange().text : document.getSelection();
 
-const editorChg    = ()     => {!isFileView && $set(ls.doc, editor.getValue()); setColor(1); updateStatus();};
+const editorChg    = ()     => {!isFileView && !isMsgView && $set(ls.doc, editor.getValue()); setColor(1); updateStatus();};
 const editorSelect = ()     => {updateStatus();};
-const openSelf     = ()     => window.open(window.location.href, "_blank")
+const openSelf     = ()     => {isMsgView && $set(ls.msg, editor.getValue()); window.open(window.location.href, "_blank");};
 const chgWarp      = ()     => {editor.setOption("wrap", autoWarp.checked ? "free" : "none"); $set(ls.isWarp, autoWarp.checked);};
-const chgFontSize  = ()     => {editor.setFontSize(+fontSize.value); $set(ls.fontSize, +fontSize.value);}
-const setColor     = (type) => {chgCSS("--launch-color", col[type]); chgCSS("--launch-hov-color", colHov[type]); chgCSS("--launch-act-color", colAct[type]);}
-const fileLoaded   = (doc)  => {setDoc(doc); (doc == edit.doc) && editor.gotoLine(10, 4, true); run();};
+const chgFontSize  = ()     => {editor.setFontSize(+fontSize.value); $set(ls.fontSize, +fontSize.value);};
+const setColor     = (type) => {chgCSS("--launch-color", col[type]); chgCSS("--launch-hov-color", colHov[type]); chgCSS("--launch-act-color", colAct[type]);};
+const fileLoaded   = (doc)  => {setDoc(doc); (doc == edit.doc) && editor.gotoLine(10, 4, true); run(); return true;};
 
 function format() {
     editor.setValue(html_beautify(editor.getValue()));
@@ -43,6 +44,7 @@ function handleConsole(type, msg) {
     cmd += `<div class="item ${type}"><span class="icon">${types[type]}</span><span class="text">${msg}</span></div>`;
     command.innerHTML = cmd + edit.cmdinsert;
     command.scrollTo({top: command.scrollHeight, behavior: "smooth"});
+    return true;
 }
 
 function commandLineKeydown(o) {
@@ -144,8 +146,8 @@ function closeDialog() {
 
 function message(e) {
     if (e.source != window.parent) return;
-    var data = JSON.parse(e.data);
-    data && (isFileView = true) && fileLoaded(data);
+    var data = decodeURIComponent(escape(atob(e.data)));
+    data && (isMsgView = true) && fileLoaded(data);
 }
 
 function setEditorFn() {
@@ -165,7 +167,7 @@ function setEditorFn() {
     window.onmessage   = message;
 
     updateStatus();
-    command.innerHTML = edit.cmdinsert;
+    command.innerHTML  = edit.cmdinsert;
 }
 
 (() => {
@@ -173,8 +175,10 @@ function setEditorFn() {
     !$get(ls.isWarp)   && $set(ls.isWarp,   false);
     !$get(ls.theme)    && $set(ls.theme,    edit.theme);
     !$get(ls.doc)      && $set(ls.doc,      edit.doc);
-
+    
     initEditor(+$get(ls.fontSize), eval($get(ls.isWarp)), $get(ls.theme), $get(ls.doc));
     autoWarp.checked = eval($get(ls.isWarp)); fontSize.value = $get(ls.fontSize);
     setEditorFn();
+
+    $get(ls.msg) && (isMsgView = true) && fileLoaded($get(ls.msg)) && handleConsole("info", "本页面将在刷新后消失。如果要保存代码，请手动复制或点击“在新窗口打开”。") && $del(ls.msg);
 })();
