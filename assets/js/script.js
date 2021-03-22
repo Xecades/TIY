@@ -181,4 +181,6 @@ function setEditorFn() {
     setEditorFn();
 
     $get(ls.msg) && (isMsgView = true) && fileLoaded($get(ls.msg)) && handleConsole("info", "本页面将在刷新后消失。如果要保存代码，请手动复制或点击“在新窗口打开”。") && $del(ls.msg);
+
+    window.msg && message(window.msg);
 })();
