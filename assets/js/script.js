@@ -150,6 +150,33 @@ function message(e) {
     data && (isMsgView = true) && fileLoaded(data);
 }
 
+function loaded() {
+    console.clear();
+    console.log(`
+    ┌─Xecades TIY────────────────────────────────────────────┐
+    │                                                        │
+    │                TIY HTML Online Launcher                │
+    │                                                        │
+    ├────────────────────────────────────────────────────────┤
+    │                                                        │
+    │ Github                  https://github.com/Xecades/TIY │
+    │ Website                           https://xecades.xyz/ │
+    │ hexo-tag-tiy   https://github.com/Xecades/hexo-tag-tiy │
+    │                                                        │
+    ├────────────────────────────────────────────────────────┤
+    │                                                        │
+    │ MIT LICENSE                                            │
+    │ Copyright © 2020 - 2021 Xecades                        │
+    │ TIY is abbreviation of Try It Yourself.                │
+    │                                                        │
+    └────────────────────────────────────────────────────────┘
+    `);
+    loading.style["opacity"] = 0;
+    setTimeout(() => {
+        loading.remove();
+    }, 300);
+}
+
 function setEditorFn() {
     editor.session.on('change', editorChg);
     editor.selection.on('changeSelection', editorSelect);
@@ -184,3 +211,7 @@ function setEditorFn() {
 
     window.msg && message(window.msg);
 })();
+
+window.onload = () => {
+    loaded();
+}

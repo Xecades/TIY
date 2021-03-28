@@ -9,9 +9,25 @@
     <meta name="description" content="Xecades 「TIY」 HTML 代码编辑器">
     <meta name="author" content="Xecades">
     <title>Xecades | TIY</title>
+
+    <script src="assets/js/HTML.js"></script>
+    <script src="assets/js/construct.js"></script>
+    <script>
+        window.onmessage = (e) => {
+            window.msg = e;
+        };
+    </script>
 </head>
 
 <body>
+    <div id="loading">
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>
     <div class="left fl">
         <div class="button no-select">
             <div class="group">
@@ -51,13 +67,6 @@
             </p>
         </div>
     </div>
-    <script>
-        window.onmessage = (e) => {
-            window.msg = e;
-        };
-    </script>
-    <script src="assets/js/HTML.js"></script>
-    <script src="assets/js/construct.js"></script>
 </body>
 
 </html>

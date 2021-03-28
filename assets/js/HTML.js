@@ -3,7 +3,7 @@ function loadJS(url) {
         var script = document.createElement("script");
         script.src = url;
         script.onload = resolve;
-        document.getElementsByTagName("body")[0].appendChild(script);
+        document.getElementsByTagName("head")[0].appendChild(script);
     });
 }
 

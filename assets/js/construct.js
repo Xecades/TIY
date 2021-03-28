@@ -1,4 +1,5 @@
 (async () => {
+    await loadCSS("assets/css/loading.css");
     await loadCSS("assets/css/style.css");
     await loadCSS("assets/css/reset.css");
 
