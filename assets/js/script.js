@@ -212,6 +212,4 @@ function setEditorFn() {
     window.msg && message(window.msg);
 })();
 
-window.onload = () => {
-    loaded();
-}
+window.onload = loaded;
