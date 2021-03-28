@@ -148,9 +148,11 @@ function message(e) {
     if (e.source != window.parent) return;
     var data = decodeURIComponent(escape(atob(e.data)));
     data && (isMsgView = true) && fileLoaded(data);
+    console.clear();
 }
 
 function loaded() {
+    if (isMsgView) return;
     console.clear();
     console.log(`
     ┌─Xecades TIY────────────────────────────────────────────┐
