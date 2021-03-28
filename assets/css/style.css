@@ -244,7 +244,6 @@ body {
     top: 0;
     z-index: -1000;
     background-color: rgb(255, 255, 255, .5);
-    backdrop-filter: blur(5px);
     opacity: 0;
 }
 
