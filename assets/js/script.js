@@ -152,6 +152,8 @@ function message(e) {
 }
 
 function loaded() {
+    loading.style["opacity"] = 0;
+    setTimeout(() => { loading.remove() }, 300);
     if (isMsgView) return;
     console.clear();
     console.log(`
@@ -173,10 +175,6 @@ function loaded() {
     │                                                        │
     └────────────────────────────────────────────────────────┘
     `);
-    loading.style["opacity"] = 0;
-    setTimeout(() => {
-        loading.remove();
-    }, 300);
 }
 
 function setEditorFn() {
