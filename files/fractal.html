@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <style >
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // preparation
+        const {sin, cos, PI, sqrt, pow, ceil} = Math;
+        el = document.createElement("canvas");
+        ctx = document.body.appendChild(el).getContext("2d");
+        el.width = window.innerWidth - 1;
+        el.height = window.innerHeight - 1;
+        rad = d => d * PI / 180;
+        next = (r, l) => [l * cos(r), l * sin(r)];
+        
+        // configuration
+        var N, Alpha, Length, Center, RotateAngle, Theta;
+        
+        // function
+        function frame(times, _N, _Alpha, _Length, _Center) {
+            N = _N;
+            Alpha = _Alpha;
+            Length = _Length;
+            Center = _Center;
+            RotateAngle = rad(360) / N;
+            Theta = rad(180 * (N - 2) / N);
+            el.width = el.width;
+            iterate(times);
+        }
+        
+        function generate(start_angle, len) {
+            ctx.save();
+            ctx.translate(...Center);
+            ctx.rotate(start_angle);
+            ctx.moveTo(0, -len);
+            ctx.beginPath();
+            for (i = 0; i < N; i++) {
+                ctx.rotate(RotateAngle);
+                ctx.lineTo(0, -len);
+            }
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function iterate(times) {
+            let angle = rad(0);
+            let len = Length;
+            while (times--) {
+                generate(angle, len);
+                angle += Alpha;
+                len = len * sin(Theta / 2) / sin(Alpha + Theta / 2);
+            }
+        }
+        
+        // usage
+        let start, Num = 5;
+        function step(timestamp) {
+            if (start === undefined) start = timestamp;
+            const elapsed = timestamp - start;
+            const angle = ceil(elapsed / 30) % (360 / Num);
+            
+            frame(400, Num, rad(angle), 200, [el.width / 2, el.height / 2]);
+            window.requestAnimationFrame(step);
+        }
+
+        window.requestAnimationFrame(step);
+    </script>
+</body>
+
+</html>
