@@ -170,7 +170,7 @@ function loaded() {
     ├────────────────────────────────────────────────────────┤
     │                                                        │
     │ MIT LICENSE                                            │
-    │ Copyright © 2020 - 2021 Xecades                        │
+    │ Copyright © 2020 - 2022 Xecades                        │
     │ TIY is abbreviation of Try It Yourself.                │
     │                                                        │
     └────────────────────────────────────────────────────────┘

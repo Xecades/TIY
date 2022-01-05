@@ -33,7 +33,7 @@ document.body.innerHTML += `<div class="left fl">
     </div>
     <p>TIY HTML 代码运行工具</p>
     <p>其中 "TIY" 是 "Try It Yourself" 的缩写</p>
-    <p>版权所有 © 2020 - 2021 <a href="https://xecades.xyz/" target="_blank" rel="noopener noreferrer">Xecades</a>
+    <p>版权所有 © 2020 - 2022 <a href="https://xecades.xyz/" target="_blank" rel="noopener noreferrer">Xecades</a>
     </p>
 </div>
 </div>`;
