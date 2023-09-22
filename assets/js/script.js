@@ -1,6 +1,6 @@
 const edit = {
     doc: `<!DOCTYPE html>\n<html lang="zh-cn">\n\n<head>\n    <meta charset="utf-8">\n    <title>Document</title>\n</head>\n\n<body>\n    \n</body>\n\n</html>`,
-    path: "https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/",
+    path: "https://fastly.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/",
     theme: "ace/theme/clouds",
     inject: `<script>\n// Code injected by tiy.xecades.xyz\nconsole.output = (type, msg) => parent.window.handleConsole(type, msg);\nconsole.log    = msg => console.output("log", msg);\nconsole.warn   = msg => console.output("warn", msg);\nconsole.error  = msg => console.output("error", msg);\nconsole.debug  = msg => console.output("log", msg);\nconsole.info   = msg => console.output("info", msg);\n\nwindow.onerror = (msg, url, row, col) => {\n    if (url == "") console.error(\`\${msg}  in line \${row}:\${col}\`);\n    else           console.error(\`in \${url}<br>\${msg}  in line \${row}:\${col}\`);\n    return true;\n}\n\nfunction __handleCommand(cmd) {\n    eval(\`try{console.output("return",\${cmd})}catch(e){console.error(e)}\`);\n}\n</script>`,
     cmdinsert: `<div class="item command"><span class="icon">❯❯</span><input id="commandLine" class="text" onkeydown="commandLineKeydown(this)"></input></div>`
@@ -212,4 +212,4 @@ function setEditorFn() {
     window.msg && message(window.msg);
 })();
 
-window.onload = loaded;
+loaded();
